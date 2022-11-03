@@ -1,0 +1,69 @@
+Sub data()
+' Dim Portion
+
+    Dim vol As String
+    Dim the_open As Double
+    Dim the_close As Double
+    Dim ticker As String
+    Dim percent_change As Double
+    Dim year_change As Double
+    Dim beg As Integer
+    
+    
+    
+    
+' Inserting Data via Cells
+
+    Cells(1, 9).Value = "Ticker"
+    Cells(1, 10).Value = "Yearly Change"
+    Cells(1, 11).Value = "Percent Change"
+    Cells(1, 12).Value = "Total Stock Volume"
+    
+
+    beg = 2
+    Total = 0
+    
+    RowCount = Cells(Rows.Count, "A").End(xlUp).Row
+    
+    
+' Looper
+
+   the_open = Cells(2, 3).Value
+   
+    For i = 2 To 753001
+
+      If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+          the_close = Cells(i, 6).Value
+          ticker = Cells(i, 1).Value
+          vol = Cells(i, 7).Value
+          
+          year_change = the_close - the_open
+          percent_change = (year_change / the_open) * 100
+     
+          
+         
+        
+ ' Print on sheet
+ 
+     
+     Range("j" & beg).Value = year_change
+
+
+     Range("I" & beg).Value = ticker
+
+     Range("K" & beg).Value = percent_change
+
+     Range("L" & beg).Value = vol
+
+     beg = beg + 1
+     
+                    
+
+
+      End If
+
+
+    Next i
+
+End Sub
+
