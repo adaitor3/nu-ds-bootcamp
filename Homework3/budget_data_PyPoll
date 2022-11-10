@@ -1,0 +1,73 @@
+#PyBank portion of Homework
+
+#Print title 
+
+print("Financial Analysis")
+print("----------------------------------")
+
+# Create files across operating systems
+
+import os
+
+# Read CSV file
+import csv
+csvpath = os.path.join("Resources", "budget_data.csv")
+
+# Open CSV File
+with open(csvpath) as csvfile:
+
+# CSV reader specifies delimiter and variable that holds content
+    reader = list(csv.reader(csvfile, delimiter=","))[1:]
+    # We dont need a next(header) because we used [1: ] to account for the header cause its starting at row 1
+
+# Set variables
+months = [row[0] for row in reader]
+amount = [int(row[1]) for row in reader]
+totalmonth = len(months)
+totalmoney = sum(amount) 
+
+# Creates a function to find out the profit/loss difference between rows of profit/loss numbers
+differences = [amount[i+1]-amount[i] for i in range(len(amount)-1)]
+
+# Calculating the average change of these differences from rows
+averagediff = sum(differences)/85
+
+# Getting the GreatestInc & GreatestDec using the min and max function
+GreatestInc = max(differences)
+GreatestDec = min(differences)
+
+# Accounting for the months with the GreatestInc and GreatestDec number
+Greatestmonthindex = differences.index(GreatestInc)
+Greatestmonthincrease = months[Greatestmonthindex]
+GreatestDecreasemonthindex = differences.index(GreatestDec)
+Greatestmonthdecrease = months[GreatestDecreasemonthindex]
+
+# Print statements
+print("Total Months:", totalmonth)
+print("Total: $", totalmoney) 
+print("Average: $", averagediff)
+print("Greatest Increase in Profits:", Greatestmonthincrease, GreatestInc)
+print("Greatest Decrease in Profits:", Greatestmonthdecrease, GreatestDec)
+
+# Print textfile
+with open("budget_data.txt", "w") as text:
+    text.write("Financial Analysis" + "\n")
+    text.write("---------------------------" + "\n")
+    text.write("Total Months:"+ " " + str(totalmonth)+ "\n")
+    text.write("Total: $"+ " " + str(totalmoney) + "\n")
+    text.write("Average: $"+ " " + str(averagediff) + "\n")
+    text.write("Greatest Increase in Profits:"+ " " + str(Greatestmonthincrease) +" (" + str(GreatestInc) +")" + "\n")
+    text.write("Greatest Decrease in Profits:"+ " " + str(Greatestmonthdecrease) +" (" + str(GreatestDec) +")" + "\n")
+    
+ 
+
+
+    
+
+
+
+
+
+
+
+        
